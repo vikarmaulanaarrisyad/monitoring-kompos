@@ -11,6 +11,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/devices/data', [DeviceController::class, 'data'])->name('devices.data');
     Route::resource('devices', DeviceController::class);
     Route::resource('sensordata', SensorDataController::class);
 });

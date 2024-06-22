@@ -31,19 +31,27 @@
                          </p>
                      </a>
                  </li>
+                 {{--  <li class="nav-item">
+                     <a href="{{ route('devices.index') }}" class="nav-link">
+                         <i class="nav-icon fas fa-cogs"></i>
+                         <p>
+                             Data User
+                         </p>
+                     </a>
+                 </li>  --}}
                  <li class="nav-item">
                      <a href="{{ route('devices.index') }}" class="nav-link">
-                         <i class="nav-icon fas fa-microchip"></i>
+                         <i class="nav-icon fas fa-cogs"></i>
                          <p>
-                             Devices
+                             Data Alat
                          </p>
                      </a>
                  </li>
                  <li class="nav-item">
                      <a href="{{ route('sensordata.index') }}" class="nav-link">
-                         <i class="nav-icon fas fa-wind"></i>
+                         <i class="nav-icon fas fa-history"></i>
                          <p>
-                             Sensor Data
+                             Histori Alat
                          </p>
                      </a>
                  </li>

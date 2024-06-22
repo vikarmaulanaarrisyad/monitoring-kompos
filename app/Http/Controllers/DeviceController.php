@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Device;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DeviceController extends Controller
 {
@@ -12,15 +13,23 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        //
+        return view('devices.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function data()
     {
-        //
+        $query = Device::orderBy('id', 'DESC');
+
+        return datatables($query)
+            ->addIndexColumn()
+            ->editColumn('action', function ($q) {
+                return '
+                  <button onclick="editForm(`' . route('devices.show', $q->id) . '`)" class="btn btn-sm btn-primary"><i class="fas fa-pencil-alt"></i></button>
+                  <button onclick="deleteData(`' . route('devices.destroy', $q->id) . '`, `' . $q->name . '`)" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+                  ';
+            })
+            ->escapeColumns([])
+            ->make(true);
     }
 
     /**
@@ -28,7 +37,19 @@ class DeviceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'device_name' => 'required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors(), 'message' => 'Please check your input'], 422);
+        }
+
+        Device::create($request->all());
+
+        return response()->json(['message' => 'Data berhasil disimpan.'], 200);
     }
 
     /**
@@ -36,15 +57,7 @@ class DeviceController extends Controller
      */
     public function show(Device $device)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Device $device)
-    {
-        //
+        return response()->json(['data' => $device]);
     }
 
     /**
@@ -52,7 +65,18 @@ class DeviceController extends Controller
      */
     public function update(Request $request, Device $device)
     {
-        //
+        $rules = [
+            'device_name' => 'required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors(), 'message' => 'Periksa kembali inputan anda'], 422);
+        }
+        $device->update($request->all());
+
+        return response()->json(['message' => 'Data berhasil disimpan.'], 200);
     }
 
     /**
@@ -60,6 +84,7 @@ class DeviceController extends Controller
      */
     public function destroy(Device $device)
     {
-        //
+        $device->delete();
+        return response()->json(['message' => 'Data berhasil dihapus.'], 200);
     }
 }

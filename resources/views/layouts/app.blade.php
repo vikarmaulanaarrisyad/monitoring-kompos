@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
 
     {{--  <link rel="icon" href="{{ Storage::url($setting->favicon_aplikasi ?? '') }}" type="image/*">  --}}
@@ -84,7 +85,7 @@
     <script src="{{ asset('adminlte') }}/plugins/chart.js/Chart.min.js"></script>
     <!-- overlayScrollbars -->
     <script src="{{ asset('adminlte') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-
+    <script src="{{ asset('/AdminLTE/plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
     @stack('scripts_vendor')
 
     <script src="{{ asset('adminlte') }}/dist/js/adminlte.js"></script>
