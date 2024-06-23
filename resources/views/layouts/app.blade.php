@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
 
-    {{--  <link rel="icon" href="{{ Storage::url($setting->favicon_aplikasi ?? '') }}" type="image/*">  --}}
+    <link rel="icon" href="{{ Storage::url($setting->favicon ?? '') }}" type="image/*">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -81,8 +81,7 @@
 
     <!-- Bootstrap 4 -->
     <script src="{{ asset('adminlte') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- ChartJS -->
-    <script src="{{ asset('adminlte') }}/plugins/chart.js/Chart.min.js"></script>
+
     <!-- overlayScrollbars -->
     <script src="{{ asset('adminlte') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <script src="{{ asset('/AdminLTE/plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
@@ -90,8 +89,7 @@
 
     <script src="{{ asset('adminlte') }}/dist/js/adminlte.js"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
-    {{--  <script src="{{ asset('adminlte') }}/dist/js/demo.js"></script>  --}}
-    {{--  <script src="{{ asset('adminlte') }}/dist/js/pages/dashboard.js"></script>  --}}
+
 
     @stack('scripts')
 </body>

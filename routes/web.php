@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\SensorDataController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UserProfileInformationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,6 +20,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // ROUTE HISTORY ALAT
     Route::get('/sensordata/data', [SensorDataController::class, 'data'])->name('sensordata.data');
+    Route::get('/sensordata/get_latest_data', [SensorDataController::class, 'getLatestData'])->name('sensordata.get_latest_data');
+    Route::get('/sensordata/getAll', [SensorDataController::class, 'getAll'])->name('sensordata.getAll');
     Route::resource('/sensordata', SensorDataController::class);
     Route::delete('/sensordata/delete_all', [SensorDataController::class, 'destroy'])->name('sensordata.delete_all');
 
@@ -26,4 +29,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
     Route::put('/setting/{setting}', [SettingController::class, 'update'])
         ->name('setting.update');
+
+    // ROUTE USERPROFILE
+    Route::get('/user/profile', [UserProfileInformationController::class, 'show'])
+        ->name('profile.show');
 });

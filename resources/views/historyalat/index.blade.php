@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Data Alat')
+@section('title', 'History Alat')
+@section('breadcrumb')
+    @parent
+    <li class="breadcrumb-item active">History Alat</li>
+@endsection
 
 @section('content')
     <div class="row">

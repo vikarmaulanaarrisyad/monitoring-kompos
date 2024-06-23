@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('title', 'Setting')
+@section('breadcrumb')
+    @parent
+    <li class="breadcrumb-item active">Pengaturan</li>
+@endsection
 
 @section('content')
     <div class="row">
