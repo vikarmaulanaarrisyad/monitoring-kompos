@@ -55,14 +55,14 @@
                          </p>
                      </a>
                  </li>
-                 {{--  <li class="nav-item">
-                     <a href="" class="nav-link">
+                 <li class="nav-item">
+                     <a href="{{ route('setting.index') }}" class="nav-link">
                          <i class="nav-icon fas fa-cog"></i>
                          <p>
                              Pengaturan Aplikasi
                          </p>
                      </a>
-                 </li>  --}}
+                 </li>
                  <li class="nav-item">
                      <a href="javascript:void(0)" class="nav-link"
                          onclick="document.querySelector('#form-logout').submit()">
