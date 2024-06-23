@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class SensorData extends Model
 {
     use HasFactory;
+
+    public function device()
+    {
+        return $this->belongsTo(Device::class);
+    }
 }

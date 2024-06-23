@@ -71,10 +71,10 @@
                     data: 'kapasitas1',
                 },
                 {
-                    data: 'kapasitas2',
+                    data: 'status',
                 },
                 {
-                    data: 'status',
+                    data: 'waktu',
                 },
             ]
         });
