@@ -3,7 +3,7 @@
      <a href="{{ route('dashboard') }}" class="brand-link">
          <img src="{{ Storage::url($setting->logo ?? '') }}" alt="Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
-         <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
+         <span class="brand-text font-weight-light">{{ $setting->nama_aplikasi ?? config('app.name') }}</span>
      </a>
 
      <!-- Sidebar -->
