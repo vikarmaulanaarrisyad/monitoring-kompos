@@ -51,7 +51,7 @@
                      <a href="{{ route('sensordata.index') }}" class="nav-link">
                          <i class="nav-icon fas fa-history"></i>
                          <p>
-                             Histori Alat
+                             Histori Monitoring
                          </p>
                      </a>
                  </li>

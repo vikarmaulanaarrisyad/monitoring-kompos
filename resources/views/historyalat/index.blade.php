@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'History Alat')
+@section('title', 'History Monitoring')
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active">History Alat</li>
+    <li class="breadcrumb-item active">History Monitoring</li>
 @endsection
 
 @section('content')
@@ -23,6 +23,8 @@
                             <th>Kelembaban (%)</th>
                             <th>Kapasitas Air</th>
                             <th>Status Pompa Air</th>
+                            <th>Kapasitas Aktivitator</th>
+                            <th>Status Pompa Aktivator</th>
                             <th>Waktu</th>
                         </tr>
                     </x-slot>
@@ -71,7 +73,13 @@
                     data: 'kapasitas1',
                 },
                 {
+                    data: 'kapasitas2',
+                },
+                {
                     data: 'status',
+                },
+                {
+                    data: 'status2',
                 },
                 {
                     data: 'waktu',
