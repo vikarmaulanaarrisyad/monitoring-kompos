@@ -20,9 +20,9 @@ class SensorDataController extends Controller
         $query = SensorData::orderBy('id', 'DESC');
         return datatables($query)
             ->addIndexColumn()
-            ->editColumn('device_id', function ($q) {
-                return  $q->device->device_name;
-            })
+            // ->editColumn('device_id', function ($q) {
+            //     return  $q->device->device_name;
+            // })
             ->editColumn('waktu', function ($q) {
                 return tanggal_indonesia($q->created_at, false, true);
             })

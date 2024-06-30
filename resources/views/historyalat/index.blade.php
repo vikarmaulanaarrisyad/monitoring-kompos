@@ -18,7 +18,6 @@
                     <x-slot name="thead">
                         <tr>
                             <th>No</th>
-                            <th>Nama Device</th>
                             <th>Suhu ℃</th>
                             <th>Kelembaban (%)</th>
                             <th>Kapasitas Air</th>
@@ -37,6 +36,13 @@
 @include('includes.datatable')
 
 @push('scripts')
+    <script>
+        $(document).ready(function() {
+            if (window.location.href.includes("/sensordata")) {
+                $('body').addClass('sidebar-closed sidebar-collapse');
+            }
+        });
+    </script>
     <script>
         let table;
         let modal = "#modal-form";
@@ -60,9 +66,7 @@
                     orderable: false,
                     searchable: false
                 },
-                {
-                    data: 'device_id',
-                },
+
                 {
                     data: 'temperature',
                 },

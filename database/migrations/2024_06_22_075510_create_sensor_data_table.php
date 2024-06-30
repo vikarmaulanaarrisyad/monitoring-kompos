@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('sensor_data', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('device_id')->nullable();
             $table->float('temperature')->nullable();
             $table->float('humidity')->nullable();
             $table->timestamps();
