@@ -25,10 +25,10 @@ class AppServiceProvider extends ServiceProvider
             $view->with('setting', Setting::first());
         });
         view()->composer('*', function ($view) {
-            $view->with('notifications', Auth::user()->notifications()->whereNull('read_at')->get());
+            $view->with('notifications', Auth::user()->notifications()->whereNull('read_at')->where('created_at','DESC')->limit(5)->get());
         });
         view()->composer('*', function ($view) {
-            $view->with('notificationCount', Auth::user()->notifications()->whereNull('read_at')->count());
+            $view->with('notificationCount', Auth::user()->notifications()->whereNull('read_at')->where('created_at','DESC')->limit(5)->count());
         });
     }
 }
