@@ -17,7 +17,7 @@ class ApiSensorDataController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store1(Request $request)
     {
         $user = User::where('id', 1)->first();
 
@@ -30,4 +30,31 @@ class ApiSensorDataController extends Controller
 
         return response()->json(['message' => 'Data berhasil disimpan',], 201);
     }
+    public function store(Request $request)
+    {
+        // Validasi input
+        $validatedData = $request->validate([
+            'temperature' => 'required|numeric',
+            'humidity' => 'required|numeric',
+            'ultrasonic1' => 'required|numeric',
+            'ultrasonic2' => 'required|numeric',
+            'status' => 'required|string',
+            'status2' => 'required|string',
+        ]);
+
+        // Dapatkan user yang akan diberi notifikasi
+        $user = User::find(1); // Sebaiknya ID ini diubah menjadi dinamis atau diambil dari konteks lain
+
+        // Periksa kondisi suhu dan kelembapan
+        if ($validatedData['temperature'] > 30 || $validatedData['humidity'] > 30) {
+            $message = 'Suhu Terlalu Tinggi';
+            $user->notify(new NewNotification($user, $message));
+        }
+
+        // Simpan data sensor
+        SensorData::create($validatedData);
+
+        return response()->json(['message' => 'Data berhasil disimpan'], 201);
+    }
+
 }
