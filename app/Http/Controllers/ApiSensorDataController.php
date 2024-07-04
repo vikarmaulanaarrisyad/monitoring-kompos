@@ -30,10 +30,11 @@ class ApiSensorDataController extends Controller
 
         return response()->json(['message' => 'Data berhasil disimpan',], 201);
     }
+
     public function store(Request $request)
     {
         // Dapatkan user yang akan diberi notifikasi
-        $user = User::find(1); // Sebaiknya ID ini diubah menjadi dinamis atau diambil dari konteks lain
+        $user = User::where('id','1')->first(); // Sebaiknya ID ini diubah menjadi dinamis atau diambil dari konteks lain
 
         // Ambil data dari request
         $temperature = $request->input('temperature');
@@ -53,11 +54,23 @@ class ApiSensorDataController extends Controller
             'status2' => $status2,
         ]);
 
-        // Periksa kondisi suhu dan kelembapan untuk notifikasi
-        if ($temperature > 30 || $humidity > 30) {
-            $message = 'Suhu Terlalu Tinggi';
+        // cek kondisi kapasitas air
+        if ($kapasitas1 == 0 || $kapasitas2 == 0) {
+            $message = 'Kapasitas Air/Aktivator  Habis';
+            $user->notify(new NewNotification($user, $message));
+        } else if ($humidity < 20) {
+            $message = 'Kompos Sudah Jadi';
             $user->notify(new NewNotification($user, $message));
         }
+
+        // Periksa kondisi suhu dan kelembapan untuk notifikasi
+        // if ($temperature > 30) {
+        //     $message = 'Suhu Terlalu Tinggi';
+        //     $user->notify(new NewNotification($user, $message));
+        // } else if ($humidity < 20) {
+        //     $message = 'Kompos Sudah Jadi';
+        //     $user->notify(new NewNotification($user, $message));
+        // }
 
         return response()->json(['message' => 'Data berhasil disimpan'], 201);
     }
