@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SensorDataController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserProfileInformationController;
@@ -33,4 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
     // ROUTE USERPROFILE
     Route::get('/user/profile', [UserProfileInformationController::class, 'show'])
         ->name('profile.show');
+    Route::get('/notifications', [NotificationController::class, 'getNotifications'])->name('notifications.get');
+    Route::post('/notifications/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
+    Route::get('/notifications/count', [NotificationController::class, 'countUnread'])->name('notifications.count');
+    Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 });
