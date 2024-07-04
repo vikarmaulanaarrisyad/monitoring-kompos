@@ -22,6 +22,13 @@
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('adminlte') }}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     @stack('css')
+    <style>
+        .dropdown-menu-lg {
+            max-width: 300px;
+            min-width: 350px !important;
+            padding: 0;
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

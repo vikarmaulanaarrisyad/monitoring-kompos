@@ -9,11 +9,13 @@ class NotificationController extends Controller
 {
     public function markAsRead(Request $request)
     {
-        $notification = auth()->user()->notifications()->find($request->id);
+         $notification = auth()->user()->notifications()->find($request->id);
 
         if ($notification) {
             $notification->markAsRead();
-            return response()->json(['status' => 'success', 'message' => 'Notification marked as read.']);
+            // Hapus notifikasi setelah dibaca
+            $notification->delete();
+            return response()->json(['status' => 'success', 'message' => 'Notification marked as read and deleted.']);
         }
 
         return response()->json(['status' => 'error', 'message' => 'Notification not found.'], 404);
