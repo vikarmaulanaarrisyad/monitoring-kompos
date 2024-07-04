@@ -21,8 +21,8 @@
                             <th>Suhu ℃</th>
                             <th>Kelembaban (%)</th>
                             <th>Kapasitas Air</th>
-                            <th>Status Pompa Air</th>
                             <th>Kapasitas Aktivitator</th>
+                            <th>Status Pompa Air</th>
                             <th>Status Pompa Aktivator</th>
                             <th>Waktu</th>
                         </tr>
