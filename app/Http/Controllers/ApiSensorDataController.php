@@ -35,17 +35,30 @@ class ApiSensorDataController extends Controller
         // Dapatkan user yang akan diberi notifikasi
         $user = User::find(1); // Sebaiknya ID ini diubah menjadi dinamis atau diambil dari konteks lain
 
-        // Periksa kondisi suhu dan kelembapan
-        if ($request->temperature > 30 || $request->humidity > 30) {
+        // Ambil data dari request
+        $temperature = $request->input('temperature');
+        $humidity = $request->input('humidity');
+        $kapasitas1 = $request->input('kapasitas1');
+        $kapasitas2 = $request->input('kapasitas2');
+        $status = $request->input('status');
+        $status2 = $request->input('status2');
+
+        // Simpan data sensor
+        SensorData::create([
+            'temperature' => $temperature,
+            'humidity' => $humidity,
+            'kapasitas1' => $kapasitas1,
+            'kapasitas2' => $kapasitas2,
+            'status' => $status,
+            'status2' => $status2,
+        ]);
+
+        // Periksa kondisi suhu dan kelembapan untuk notifikasi
+        if ($temperature > 30 || $humidity > 30) {
             $message = 'Suhu Terlalu Tinggi';
             $user->notify(new NewNotification($user, $message));
         }
 
-        // Simpan data sensor
-        SensorData::create($request->all());
-
         return response()->json(['message' => 'Data berhasil disimpan'], 201);
     }
-
-
 }
