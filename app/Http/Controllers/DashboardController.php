@@ -9,9 +9,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $notifications = Auth::user()->notifications()->whereNull('read_at')->get();
-        $notificationCount = $notifications->count();
+        // $notifications = Auth::user()->notifications()->whereNull('read_at')->get();
+        // $notificationCount = $notifications->count();
 
-        return view('dashboard.index', compact('notifications', 'notificationCount'));
+        return view('dashboard.index');
     }
 }
