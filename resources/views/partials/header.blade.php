@@ -104,7 +104,7 @@
                 });
         }
 
-        function markAllAsRead() {
+        function markAllAsRead1() {
             fetch('{{ route('notifications.markAllAsRead') }}', {
                     method: 'POST',
                     headers: {
@@ -121,4 +121,21 @@
 
         setInterval(updateNotifications, 2000);
     });
+
+    function markAllAsRead() {
+        fetch('{{ route('notifications.markAllAsRead') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            }).then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    updateNotifications();
+                }
+            }).catch(error => {
+                console.error('Error marking all as read:', error);
+            });
+    }
 </script>
