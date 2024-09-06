@@ -30,6 +30,12 @@
                 </x-table>
             </x-card>
         </div>
+        <!-- Grafik Line -->
+        <div class="col-lg-12">
+            <x-card title="Grafik Monitoring Sensor">
+                <canvas id="lineChart"></canvas>
+            </x-card>
+        </div>
     </div>
     @include('devices.form')
 @endsection
@@ -143,5 +149,90 @@
                 }
             });
         }
+    </script>
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('adminlte') }}/plugins/chart.js/Chart.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Jika berada di halaman sensor data, collapse sidebar
+            if (window.location.href.includes("/sensordata")) {
+                $('body').addClass('sidebar-closed sidebar-collapse');
+            }
+
+            // Data dari backend untuk chart
+            const sensorData = {
+                labels: [], // Waktu
+                datasets: [{
+                        label: 'Suhu (℃)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        data: [] // Suhu data
+                    },
+                    {
+                        label: 'Kelembaban (%)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        data: [] // Kelembaban data
+                    }
+                ]
+            };
+
+            const ctx = document.getElementById('lineChart').getContext('2d');
+            const lineChart = new Chart(ctx, {
+                type: 'line',
+                data: sensorData,
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'minute' // Ubah sesuai kebutuhan
+                            },
+                            title: {
+                                display: true,
+                                text: 'Waktu'
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Nilai Sensor'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Ambil data dari server untuk update chart
+            function updateChart() {
+                $.ajax({
+                    url: '{{ route('sensordata.chart') }}',
+                    type: 'GET',
+                    success: function(data) {
+                        console.log('Data => ', data);
+                        // Kosongkan data lama
+                        sensorData.labels.length = 0;
+                        sensorData.datasets[0].data.length = 0;
+                        sensorData.datasets[1].data.length = 0;
+
+                        // Update data baru
+                        data.forEach(sensor => {
+                            sensorData.labels.push(sensor.waktu);
+                            sensorData.datasets[0].data.push(sensor.temperature);
+                            sensorData.datasets[1].data.push(sensor.humidity);
+                        });
+
+                        lineChart.update();
+                    }
+                });
+            }
+
+            // Panggil updateChart setiap interval waktu
+            setInterval(updateChart, 1000); // Update tiap 5 detik
+        });
     </script>
 @endpush

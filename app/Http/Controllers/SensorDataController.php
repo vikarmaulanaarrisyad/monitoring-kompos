@@ -92,4 +92,14 @@ class SensorDataController extends Controller
             ]);
         }
     }
+
+    public function getChartData()
+    {
+        // Ambil data sensor dari database
+        $data = SensorData::select('temperature', 'humidity', 'created_at as waktu')
+            ->orderBy('waktu', 'asc')
+            ->get();
+
+        return response()->json($data);
+    }
 }

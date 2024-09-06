@@ -20,6 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/devices', DeviceController::class);
 
     // ROUTE HISTORY ALAT
+    Route::get('/sensordata/chart', [SensorDataController::class, 'getChartData'])->name('sensordata.chart');
     Route::get('/sensordata/data', [SensorDataController::class, 'data'])->name('sensordata.data');
     Route::get('/sensordata/get_latest_data', [SensorDataController::class, 'getLatestData'])->name('sensordata.get_latest_data');
     Route::get('/sensordata/getAll', [SensorDataController::class, 'getAll'])->name('sensordata.getAll');
@@ -38,4 +39,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/notifications/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
     Route::get('/notifications/count', [NotificationController::class, 'countUnread'])->name('notifications.count');
     Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+    // Route di web.php
 });

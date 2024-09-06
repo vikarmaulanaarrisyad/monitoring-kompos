@@ -6,12 +6,13 @@
 
     @push('scripts')
         <script src="{{ asset('adminlte') }}/plugins/chart.js/Chart.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 var ctx = document.getElementById('humidityTemperatureChart').getContext('2d');
                 var humidityTemperatureChart = new Chart(ctx, {
-                    type: 'doughnut', // Changed to 'doughnut'
+                    type: 'pie', // Changed to 'doughnut'
                     data: {
                         labels: ['Humidity', 'Temperature'],
                         datasets: [{
@@ -25,12 +26,24 @@
                                 'rgba(75, 192, 192, 1)',
                                 'rgba(255, 99, 132, 1)'
                             ],
-                            borderWidth: 1
+                            borderWidth: 1,
+                            hoverOffset: 4,
                         }]
                     },
                     options: {
                         responsive: true,
-                    }
+                        plugins: {
+                            datalabels: {
+                                color: '#000', // Warna teks yang akan ditampilkan
+                                anchor: 'center',
+                                align: 'center',
+                                formatter: function(value, context) {
+                                    return value.toFixed(0); // Format angka (misalnya, dua desimal)
+                                }
+                            }
+                        },
+                    },
+                    plugins: [ChartDataLabels] // Aktifkan plugin datalabels
                 });
 
                 function updateTable(data) {
@@ -74,7 +87,7 @@
                                         temperatureBox.innerHTML =
                                             `<div class="inner"><h3>${latestData.temperature.toFixed(2)} °C</h3><p>Temperature</p></div>`;
                                         humidityBox.innerHTML =
-                                            `<div class="inner"><h3>${latestData.humidity.toFixed(2)} %</h3><p>Humidity</p></div>`;
+                                            `<div class="inner"><h3>${latestData.humidity.toFixed(0)} %</h3><p>Humidity</p></div>`;
 
                                         // Update box color based on temperature
                                         updateBoxColors(temperatureBox, humidityBox, latestData.temperature);

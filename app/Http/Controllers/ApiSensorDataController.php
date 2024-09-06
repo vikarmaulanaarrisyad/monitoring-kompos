@@ -34,11 +34,7 @@ class ApiSensorDataController extends Controller
     public function store(Request $request)
     {
         // Dapatkan user yang akan diberi notifikasi
-<<<<<<< HEAD
         $user = User::where('id', '1')->first(); // Sebaiknya ID ini diubah menjadi dinamis atau diambil dari konteks lain
-=======
-        $user = User::where('id','1')->first(); // Sebaiknya ID ini diubah menjadi dinamis atau diambil dari konteks lain
->>>>>>> 3aaa24b9c736b4ddb837b22d9c29382c2ca1ce77
 
         // Ambil data dari request
         $temperature = $request->input('temperature');
