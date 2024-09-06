@@ -23,12 +23,14 @@
                 @foreach ($notifications as $notification)
                     <a href="#" class="dropdown-item notification-item" data-id="{{ $notification->id }}">
                         <i class="fas fa-bell mr-2"></i> {{ $notification->data['message'] }}
-                        <span class="float-right text-muted text-sm">{{ $notification->created_at->diffForHumans() }}</span>
+                        <span
+                            class="float-right text-muted text-sm">{{ $notification->created_at->diffForHumans() }}</span>
                     </a>
                     <div class="dropdown-divider"></div>
                 @endforeach
 
-                <a href="#" class="dropdown-item dropdown-footer" onclick="event.preventDefault(); markAllAsRead();">Mark All as Read</a>
+                <a href="#" class="dropdown-item dropdown-footer"
+                    onclick="event.preventDefault(); markAllAsRead();">Mark All as Read</a>
             </div>
         </li>
         <li class="nav-item">
@@ -57,7 +59,7 @@
                 .then(data => {
                     const notificationMenu = document.getElementById('notificationMenu');
                     notificationMenu.innerHTML = `
-                        <span class="dropdown-item dropdown-header">${data.length} Notifications</span>
+                        <span class="dropdown-item dropdown-header">${data.length} Notifikasi</span>
                         <div class="dropdown-divider"></div>
                     `;
 
@@ -86,33 +88,35 @@
 
         function markAsRead(id) {
             fetch('{{ route('notifications.markAsRead') }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ id: id })
-            }).then(response => response.json())
-              .then(data => {
-                  if (data.status === 'success') {
-                      updateNotifications();
-                  }
-              });
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        id: id
+                    })
+                }).then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        updateNotifications();
+                    }
+                });
         }
 
         function markAllAsRead() {
             fetch('{{ route('notifications.markAllAsRead') }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            }).then(response => response.json())
-              .then(data => {
-                  if (data.status === 'success') {
-                      updateNotifications();
-                  }
-              });
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                }).then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        updateNotifications();
+                    }
+                });
         }
 
         setInterval(updateNotifications, 2000);
